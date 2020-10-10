@@ -1,0 +1,58 @@
+<div class="container d-flex">
+  <div class="row align-self-center w-100">
+    <div class="col-10 mx-auto">
+      <div class="jumbotron">
+        <div class="list-group" *ngFor="let product of products">
+          <span href="#" class="list-group-item list-group-item-action active">
+            {{ product.categoryName }}
+            <span class="pull-right">{{ product.total | currency }}</span>
+          </span>
+          <span
+            class="list-group-item list-group-item-action"
+            *ngFor="let item of product.item"
+          >
+            <span class="text-primary">{{ item.displayName }}</span>
+            <span class="pull-right pointer">
+              <span>{{ item.value | currency }}</span>
+              <i class="fa fa-trash pointer" (click)="deleteItem(item.id)"></i>
+            </span>
+          </span>
+        </div>
+        <form ngNativeValidate class="form-inline" (ngSubmit)="onSubmit()">
+          <input
+            required
+            type="text"
+            placeholder="Item Name"
+            class="form-control col-3"
+            id="newAttributeName"
+            [(ngModel)]="itemName"
+            name="newAttributeName"
+          />
+
+          <input
+            required
+            type="number"
+            class="form-control col-3"
+            id="newAttributePrice"
+            [(ngModel)]="itemValue"
+            name="newAttributePrice"
+            placeholder="Item Value"
+          />
+          <select
+            required
+            id="inputState"
+            name="itemCategory"
+            [(ngModel)]="itemCategoryId"
+            class="form-control col-3"
+          >
+            <option *ngFor="let cat of categories" value="{{ cat.categoryId }}">
+              {{ cat.category }}
+            </option>
+          </select>
+
+          <button class="btn bg-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
